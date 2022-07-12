@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import i18n from '../structure/i18n.json'
 
-const height = 80
+const height = 40
 
 const Container = styled.div`
   display: flex;
@@ -36,3 +36,5 @@ export default function Footer({ handleChangeLangCode }) {
     </Container>
   )
 }
+
+export const FooterHeight = height

@@ -56,5 +56,34 @@
         "displayValue": "绝地求生"
       }
     ]
+  },
+  {
+    "langCode": "en-gb",
+    "localizations": [
+      {
+        "displayKey": "{structure.general}",
+        "displayValue": "General Sports Description"
+      },
+      {
+        "displayKey": "{structure.football}",
+        "displayValue": "Football"
+      },
+      {
+        "displayKey": "{structure.esport}",
+        "displayValue": "eSports"
+      },
+      {
+        "displayKey": "{esport.lol}",
+        "displayValue": "League of Legends"
+      },
+      {
+        "displayKey": "{esport.csgo}",
+        "displayValue": "Absolute Force: Global Offensive"
+      },
+      {
+        "displayKey": "{esport.pubg}",
+        "displayValue": "PUBG Mobile"
+      }
+    ]
   }
 ]

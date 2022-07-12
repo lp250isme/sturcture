@@ -3,15 +3,8 @@ import { marked } from 'marked'
 import { reducer } from './reducer'
 import styled from 'styled-components'
 import Header from './components/header'
-import Footer from './components/footer'
-
-const INITIAL_STATE = {
-  langCode: 'zh-tw',
-  curArticle: '{structure.general}',
-  menu: [],
-  articlePath: '',
-  article: ''
-}
+import Footer, { FooterHeight } from './components/footer'
+import { INITIAL_STATE } from './reducer'
 
 const Container = styled.div`
   display: flex;
@@ -20,20 +13,13 @@ const Container = styled.div`
 
 const Content = styled.div`
   position: relative;
-  padding: 50px 20px 20px 30px;
+  padding: 0px 20px 50px 20px;
 `
 
 function App() {
   const [variables, dispatch] = useReducer(reducer, INITIAL_STATE)
   const { menu, articlePath, article, langCode } = variables
-  useEffect(
-    () =>
-      dispatch({
-        type: 'CHANGE_LANG_CODE',
-        payload: INITIAL_STATE
-      }),
-    []
-  )
+  useEffect(() => initialize(INITIAL_STATE), [])
 
   useEffect(() => {
     fetch(articlePath)
@@ -46,9 +32,6 @@ function App() {
       )
   }, [articlePath, langCode])
 
-  console.log('article,', article)
-  console.log('variables,', variables)
-
   return (
     <Container>
       <Header menu={menu} handleChangeArticle={handleChangeArticle} />
@@ -58,6 +41,13 @@ function App() {
       <Footer handleChangeLangCode={handleChangeLangCode} />
     </Container>
   )
+
+  function initialize() {
+    dispatch({
+      type: 'CHANGE_LANG_CODE',
+      payload: INITIAL_STATE
+    })
+  }
 
   function handleChangeArticle(displayKey) {
     dispatch({

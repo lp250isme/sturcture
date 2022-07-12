@@ -33,6 +33,14 @@ function getArticlePath(langCode, displayKey) {
   }
 }
 
+export const INITIAL_STATE = {
+  langCode: 'zh-tw',
+  curArticle: '{structure.general}',
+  menu: [],
+  articlePath: '',
+  article: ''
+}
+
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_LANG_CODE':

@@ -6,6 +6,7 @@ import Header from './components/header'
 
 const INITIAL_STATE = {
   langCode: 'zh-tw',
+  curArticle: '{structure.general}',
   menu: []
 }
 
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <Header menu={menu} dispatch={dispatch} />
+      <div style={{ height: '90px' }}></div>
       <div
         onClick={() =>
           dispatch({
@@ -46,11 +48,23 @@ function App() {
       >
         zh-tw
       </div>
+      <div
+        onClick={() =>
+          dispatch({
+            type: 'CHANGE_ARTICLE',
+            payload: { displayKey: '{structure.football}' }
+          })
+        }
+      >
+        football
+      </div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>
   )
+
+  function handleChangeArticle(displayKey) {}
 }
 
 export default App

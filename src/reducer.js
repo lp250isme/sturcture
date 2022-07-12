@@ -1,4 +1,3 @@
-import marked from 'marked'
 import baseStructure from './structure/structure.json'
 import i18n from './structure/i18n.json'
 
@@ -20,12 +19,18 @@ function formatMenu(langCode) {
 }
 
 const rootDirect = 'structure'
-function loadArticle(langCode, displayKey) {
+function getArticlePath(langCode, displayKey) {
   const tempDirects = displayKey.replace('{', '').replace('}', '').split('.')
   const directs =
     tempDirects[0] === rootDirect ? tempDirects : [rootDirect, ...tempDirects]
-  console.log('directs,', directs)
-  // const readmePath = require('./Readme.md')
+  try {
+    return require(`${directs.reduce(
+      (path, direct) => `${path}/${direct}`,
+      '.'
+    )}/README_${langCode}.md`)
+  } catch (e) {
+    return require(`./${rootDirect}/nodata/README_${langCode}.md`)
+  }
 }
 
 export const reducer = (state, action) => {
@@ -33,19 +38,24 @@ export const reducer = (state, action) => {
     case 'CHANGE_LANG_CODE':
       const selectedLangCode = action.payload.langCode
       const menu = formatMenu(selectedLangCode)
-      console.log('menu,', menu)
       return {
         ...state,
         langCode: action.payload.langCode,
+        articlePath: getArticlePath(selectedLangCode, state.curArticle),
         menu
       }
     case 'CHANGE_ARTICLE':
       const { langCode } = state
       const { displayKey } = action.payload
-      const article = loadArticle(langCode, displayKey)
       return {
         ...state,
-        curArticle: displayKey
+        curArticle: displayKey,
+        articlePath: getArticlePath(langCode, displayKey)
+      }
+    case 'SET_ARTICLE':
+      return {
+        ...state,
+        article: action.payload
       }
     default:
       throw new Error(`不存在的 action type: ${action.type}`)

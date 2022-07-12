@@ -40,7 +40,7 @@ const Item = styled.div`
   cursor: pointer;
 `
 
-export default function Header({ menu, dispatch }) {
+export default function Header({ menu, handleChangeArticle }) {
   return (
     <Container>
       {menu.map(item => {
@@ -50,13 +50,25 @@ export default function Header({ menu, dispatch }) {
               <Item key={item.displayKey}>{item.displayValue}</Item>
               <SubItemContainer>
                 {item.subStructure.map(item => (
-                  <Item key={item.displayKey}>{item.displayValue}</Item>
+                  <Item
+                    key={item.displayKey}
+                    onClick={() => handleChangeArticle(item.displayKey)}
+                  >
+                    {item.displayValue}
+                  </Item>
                 ))}
               </SubItemContainer>
             </SubMenu>
           )
         }
-        return <Item key={item.displayKey}>{item.displayValue}</Item>
+        return (
+          <Item
+            key={item.displayKey}
+            onClick={() => handleChangeArticle(item.displayKey)}
+          >
+            {item.displayValue}
+          </Item>
+        )
       })}
     </Container>
   )
